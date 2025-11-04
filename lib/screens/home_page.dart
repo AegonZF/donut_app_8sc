@@ -5,6 +5,8 @@ import 'package:donut_app_8sc/tab/pizza_tab.dart';
 import 'package:donut_app_8sc/tab/smoothie_tab.dart';
 import 'package:donut_app_8sc/utils/my_tab.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:donut_app_8sc/utils/cart_model.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -72,6 +74,59 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             //4. Carrito (Cart)
+            Consumer<CartModel>(
+              builder: (context, cart, child) {
+                return Container(
+                  color: Colors.white,
+                  padding: EdgeInsets.all(16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(left: 28),
+                        child: Column(
+                          //se pega a la izquierda
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              '${cart.itemCount} Items | \$${cart.totalPrice}',
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              'Delivery Charges Included',
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.pink,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 24,
+                            vertical: 12,
+                          ),
+                        ),
+                        onPressed: () {},
+                        child: const Text(
+                          'View Cart',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
           ],
         ),
       ),

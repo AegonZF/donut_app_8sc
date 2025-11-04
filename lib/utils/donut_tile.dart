@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:donut_app_8sc/utils/cart_model.dart';
 
 class DonutTile extends StatelessWidget {
   final String donutFlavor;
@@ -26,7 +28,6 @@ class DonutTile extends StatelessWidget {
           borderRadius: BorderRadius.circular(24),
         ),
         child: Column(
-          //Precio
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -46,9 +47,9 @@ class DonutTile extends StatelessWidget {
                   child: Text(
                     '\$$donutPrice',
                     style: TextStyle(
+                      color: donutColor[800],
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
-                      color: donutColor[800],
                     ),
                   ),
                 ),
@@ -62,9 +63,13 @@ class DonutTile extends StatelessWidget {
             //Nombre de la dona
             Text(
               donutFlavor,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                color: donutColor[800],
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-            //Proveedor de la dona
+            //Tienda de la dona
             Text(donutProvider, style: TextStyle(color: Colors.grey[600])),
             //Botones
             Padding(
@@ -72,11 +77,16 @@ class DonutTile extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // Favorito
+                  //Favorito
                   Icon(Icons.favorite, color: Colors.pink[400]),
-                  // Agregar
+                  //Agregar
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Provider.of<CartModel>(
+                        context,
+                        listen: false,
+                      ).addToCart(donutPrice);
+                    },
                     child: Text(
                       'Add',
                       style: TextStyle(
